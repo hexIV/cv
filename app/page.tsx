@@ -26,10 +26,10 @@ export default function Home() {
     { title: 'AWS Lambda', level: 8 },
     { title: 'AWS S3', level: 8 },
     { title: 'AWS Cloudfront', level: 8 },
-    { title: 'AWS Redis Elasticache', level: 8 },
+    { title: 'Redis Elasticache', level: 8 },
     { title: 'CI/CD', level: 7 },
     { title: 'GIT', level: 9 },
-    { title: 'Agile Methodology', level: 9 },
+    { title: 'Agile', level: 9 },
   ]
 
   const experiences = [
@@ -107,15 +107,15 @@ export default function Home() {
   ]
 
   return (
-    <main className="flex min-h-screen items-center bg-neutral-200">
-      <div className="flex h-screen w-2/4 h-full fixed items-center justify-center flex-col top-0 right-0 bg-green-300">
+    <main className="flex flex-col md:flex-row min-h-screen items-center bg-neutral-200">
+      <div className="flex h-screen w-full lg:w-2/4 lg:fixed items-center justify-center flex-col lg:top-0 lg:right-0 bg-green-300">
         <Image className="w-250 h-250 p-1 rounded-full ring-2 ring-black" src="/me.jpg" width="300" height="300" alt={name} />
         <h1 className="text-2xl mt-5">{name}</h1>
         <h2 className="mt-1">Lead Software Developer</h2>
         <div>{differenceInYears(new Date(), parseISO('1987-09-20'))} yrs old from <Flag width="22" code={'mt'} alt={`Malta`} style={{display: 'inline-block'}} /> Malta</div>
       </div>
-      <div className="w-2/4 min-h-screen flex flex-col p-12">
-        <ul className="w-2/4 flex list-none justify-end fixed left-0 top-12 pr-12">
+      <div className="lg:w-2/4 min-h-screen flex flex-col p-3 lg:p-12">
+        <ul className="menu w-full lg:w-2/4 flex list-none justify-end fixed left-0 top-0 lg:top-12 lg:pr-12 lg:bg-transparent pb-3 pt-3 lg:pb-0 lg:pt-0">
           <li className="mr-4"><Link href={'#about'}>about</Link></li>
           <li className="mr-4"><Link href={'#skills'}>skills</Link></li>
           <li className="mr-4"><Link href={'#experience'}>experience</Link></li>
@@ -127,7 +127,7 @@ export default function Home() {
           <h3 className="text-center text-2xl mb-16">About me</h3>
           <p className="mb-5">Born in 1987 from <Flag width="22" code={'mt'} alt={`Malta`} style={{display: 'inline-block'}} /> Malta, Software Development has been my passion since I was very young playing around with mIRC scripts and plugins.</p>
           <p className="mb-5">After I graduated from MCAST with a Bachelors in Computer Science while also learning PHP alone, I have started to build websites by myself as a hobby while also landing my first job with Crimsonwing as a PHP Developer.</p>
-          <p>During my ~13 years career now, I&apos;ve been throughout all the Software Development stages from meeting clients and understanding requirements, coding, and deploying production environments.</p>
+          <p>During my ~13 years career now, I&apos;ve been throughout all the Software Development stages from meeting clients and understanding requirements, coding, code reviews, and deploying production environments.</p>
         </div>
         <a id="skills"></a>
         <div className="flex flex-col min-h-screen justify-center">
@@ -190,7 +190,7 @@ export default function Home() {
           <ul>
             {education.map((educationItem, index) => {
               return <li key={`skill-${index + skills.length /2}`} className="mb-5">
-                <div className="flex justify-between">
+                <div className="flex flex-col items-center lg:items-start lg:flex-row lg:justify-between">
                   <span><b>{educationItem.degree}</b> at <b>{educationItem.school}</b></span>
                   <span>{format(educationItem.from, "MMMM yyyy")} - {educationItem.to == null ? 'Present' : format(educationItem.to, 'MMMM yyyy')}</span>
                 </div>
