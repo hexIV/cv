@@ -25,7 +25,9 @@ body {
 }
 
 main {
-  .portrait {
-    border-radius: 50%;
+  .experience-description {
+    p {
+      @apply mb-5 text-justify;
+    }
   }
 }

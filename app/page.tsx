@@ -1,6 +1,11 @@
+'use client';
+
+import { differenceInYears, format, parseISO } from 'date-fns';
 import Image from 'next/image'
 import Link from 'next/link';
 import Flag from 'react-world-flags'
+import { Carousel } from 'flowbite-react';
+import subYears from 'date-fns/subYears';
 
 export default function Home() {
   const name = 'Josef George Orland';
@@ -23,14 +28,91 @@ export default function Home() {
     { title: 'AWS Cloudfront', level: 8 },
     { title: 'AWS Redis Elasticache', level: 8 },
     { title: 'CI/CD', level: 7 },
+    { title: 'GIT', level: 9 },
+    { title: 'Agile Methodology', level: 9 },
+  ]
+
+  const experiences = [
+    {
+      company: 'THESPIKE.GG',
+      role: 'Tech Lead & Founder',
+      description: `
+        <p>THESPIKE.GG is a website that provides coverage of professional esports for VALORANT, a game published by Riot Games (same publisher of League of Legends).<p>
+        <p>I had founded this project back in 2019 and had built the whole system from scratch by myself using a custom CMS, frontend with CakePHP, SASS and jQuery and a MySQL database hosted on AWS infrastructure.</p>
+        <p>In 2021, the website was sold to Zealium Media Ltd. where I kept my role as a Tech Lead on the project. The role included porting the frontend to Next.JS hosted on Vercel while also creating a REST API to handle data for the frontend. I have setup the API to run on AWS Elasticbeanstalk with CI/CD for Staging and Production environments that connects to an AWS RDS MySQL Cluster.</p>
+        <p>The project also boosts other AWS services such as AWS Lambda Node.js functions running as cron jobs, a Websocket.io Node.js AWS EC2 server for Live Scores, AWS S3 & Cloudfront for image hosting and CDN delivery and AWS Redis Elasticache for data caching.</p>
+      `,
+      from: parseISO('2020-11-01'),
+      to: null
+    },
+    {
+      company: 'PreeoStudios',
+      role: 'Managing Director',
+      description: `
+        <p>Founder of the company alongside 2 other school friends, we created the company to build websites and further down the years more complex internal systems for larger companies. Role included all stages of the development life-cycle from meeting the client and launching the final version of the project. The company had approximately around 8-10 developers who where assigned to several projects running simultaneously.</p>
+        <p>During these years I have used a lot of different technologies on different projects such as CakePHP, Laravel, SASS, Angular.js, React.js, React Native, Firebase, AWS RDS, AWS EC2, AWS Elasticache and much more.</p>
+      `,
+      from: parseISO('2009-01-01'),
+      to: parseISO('2020-11-01'),
+    },
+    {
+      company: 'Cashpoint Sportwetten',
+      role: 'Team Coordinatior Online Development',
+      description: `
+        <p>Leading a team of 3 developers in Malta for a Betting Company that had it's headquarters in Austria, my role included being a Scrum Master for the re-design project of the website based on Yii2 while also working on a Sportsbook live scores screen running on Raspberry Pi with Javascript and Websockets to be shown on TVs in Betting Shops</p>
+      `,
+      from: parseISO('2013-06-01'),
+      to: parseISO('2015-01-01'),
+    },
+    {
+      company: 'Fengaming Ltd.',
+      role: 'Software Developer',
+      description: `
+        <p>Development of new projects and improvements to an online betting platform based on PHP & MySQL. My main focus was the pre-live Sports Betting section and Bonuses given on Betting Slips.</p>
+        <p>I also implemented a lot of the Betting section to obtain the Italian Sportsbook License (AAMS) while having tasks involving HTML, CSS and jQuery</p>
+      `,
+      from: parseISO('2011-06-01'),
+      to: parseISO('2013-05-01'),
+    },
+    {
+      company: 'Crimsonwing',
+      role: 'Web Developer',
+      description: `
+        <p>Developing e-commerce websites using the Magento Enterprise Edition (based on the Zend MVC), involving the use of PHP, MySQL, CSS, XHTML and JavaScript with Prototype & jQuery libraries. Development included also integration of payment gateway (RBS Worldpay)</p>
+      `,
+      from: parseISO('2011-06-01'),
+      to: parseISO('2013-05-01'),
+    }
+  ]
+
+  const education = [
+    {
+      school: 'MCAST',
+      degree: 'B. Sc., Computer Science',
+      from: parseISO('2010-01-01'),
+      to: parseISO('2011-12-01')
+    },
+    {
+      school: 'MCAST',
+      degree: 'Higher National Diploma',
+      from: parseISO('2008-01-01'),
+      to: parseISO('2009-12-01')
+    },
+    {
+      school: 'MCAST',
+      degree: 'National Diploma',
+      from: parseISO('2006-01-01'),
+      to: parseISO('2007-12-01')
+    },
   ]
 
   return (
     <main className="flex min-h-screen items-center bg-neutral-200">
       <div className="flex h-screen w-2/4 h-full fixed items-center justify-center flex-col top-0 right-0 bg-green-300">
-        <Image className="portrait" src="/me.jpg" width="300" height="300" alt={name} />
+        <Image className="w-250 h-250 p-1 rounded-full ring-2 ring-black" src="/me.jpg" width="300" height="300" alt={name} />
         <h1 className="text-2xl mt-5">{name}</h1>
         <h2 className="mt-1">Lead Software Developer</h2>
+        <div>{differenceInYears(new Date(), parseISO('1987-09-20'))} yrs old from <Flag width="22" code={'mt'} alt={`Malta`} style={{display: 'inline-block'}} /> Malta</div>
       </div>
       <div className="w-2/4 min-h-screen flex flex-col p-12">
         <ul className="w-2/4 flex list-none justify-end fixed left-0 top-12 pr-12">
@@ -86,10 +168,35 @@ export default function Home() {
         <a id="experience"></a>
         <div className="flex flex-col min-h-screen justify-center">
           <h3 className="text-center text-2xl mb-16">Experience</h3>
+          <div style={{height: "600px"}}>
+            <Carousel slide={false}>
+              {experiences.map((experience, index) => {
+                return <div key={`experience-${index}`} className="flex h-full items-center bg-gray-300">
+                  <div className="flex flex-col flex-1 pl-20 pr-20">
+                    <div className="flex flex-1 flex-col mb-5">
+                      <span><b>{experience.role}</b> at <b>{experience.company}</b></span>
+                      <span>{format(experience.from, "MMMM yyyy")} - {experience.to == null ? 'Present' : format(experience.to, 'MMMM yyyy')}</span>
+                    </div>
+                    <div className="experience-description" dangerouslySetInnerHTML={{__html: experience.description}}></div>
+                  </div>
+                </div>
+              })}
+            </Carousel>
+          </div>
         </div>
         <a id="education"></a>
         <div className="flex flex-col min-h-screen justify-center">
           <h3 className="text-center text-2xl mb-16">Education</h3>
+          <ul>
+            {education.map((educationItem, index) => {
+              return <li key={`skill-${index + skills.length /2}`} className="mb-5">
+                <div className="flex justify-between">
+                  <span><b>{educationItem.degree}</b> at <b>{educationItem.school}</b></span>
+                  <span>{format(educationItem.from, "MMMM yyyy")} - {educationItem.to == null ? 'Present' : format(educationItem.to, 'MMMM yyyy')}</span>
+                </div>
+              </li>
+            })}
+          </ul>
         </div>
         <a id="contact"></a>
         <div className="flex flex-col min-h-screen justify-center items-center">
@@ -100,11 +207,17 @@ export default function Home() {
                 <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
                 <rect x="2" y="9" width="4" height="12" />
                 <circle cx="4" cy="4" r="2" />
-              </svg> <Link href="https://linkedin.com/joorland">https://linkedin.com/joorland</Link>
+              </svg> <Link target='_blank' href="https://linkedin.com/joorland">https://linkedin.com/joorland</Link>
             </li>
             <li className="flex items-center">
               <svg className="h-8 w-8 text-red-500 mr-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"/></svg>
-              <Link href="mailto:jgorland@gmail.com">jgorland@gmail.com</Link>
+              <Link target='_blank' href="mailto:jgorland@gmail.com">jgorland@gmail.com</Link>
+            </li>
+            <li className="flex items-center">
+              <svg className="h-8 w-8 text-black mr-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+              </svg>
+              <Link target='_blank' href="https://github.com/hexIV">hexIV</Link>
             </li>
           </ul>
         </div>
