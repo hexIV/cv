@@ -45,7 +45,7 @@ export default function Home() {
           <h3 className="text-center text-2xl mb-16">About me</h3>
           <p className="mb-5">Born in 1987 from <Flag width="22" code={'mt'} alt={`Malta`} style={{display: 'inline-block'}} /> Malta, Software Development has been my passion since I was very young playing around with mIRC scripts and plugins.</p>
           <p className="mb-5">After I graduated from MCAST with a Bachelors in Computer Science while also learning PHP alone, I have started to build websites by myself as a hobby while also landing my first job with Crimsonwing as a PHP Developer.</p>
-          <p>During my ~13 years career now, I've been throughout all the Software Development stages from meeting clients and understanding requirements, coding, and deploying production environments.</p>
+          <p>During my ~13 years career now, I&apos;ve been throughout all the Software Development stages from meeting clients and understanding requirements, coding, and deploying production environments.</p>
         </div>
         <a id="skills"></a>
         <div className="flex flex-col min-h-screen justify-center">
@@ -53,8 +53,8 @@ export default function Home() {
           <div className="flex">
             <div className="flex-1 mr-5">
               <ul>
-                {skills.slice(0, skills.length/2).map((skill) => {
-                  return <li className="mb-5">
+                {skills.slice(0, skills.length/2).map((skill, index) => {
+                  return <li key={`skill-${index}`} className="mb-5">
                     <div className="flex justify-between">
                       <span>{skill.title}</span>
                       <span>{skill.level}/10</span>
@@ -68,8 +68,8 @@ export default function Home() {
             </div>
             <div className="flex-1">
               <ul>
-                {skills.slice(skills.length/2).map((skill) => {
-                  return <li className="mb-5">
+                {skills.slice(skills.length/2).map((skill, index) => {
+                  return <li key={`skill-${index + skills.length /2}`} className="mb-5">
                     <div className="flex justify-between">
                       <span>{skill.title}</span>
                       <span>{skill.level}/10</span>
@@ -103,7 +103,7 @@ export default function Home() {
               </svg> <Link href="https://linkedin.com/joorland">https://linkedin.com/joorland</Link>
             </li>
             <li className="flex items-center">
-              <svg className="h-8 w-8 text-red-500 mr-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"/></svg>
+              <svg className="h-8 w-8 text-red-500 mr-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"/></svg>
               <Link href="mailto:jgorland@gmail.com">jgorland@gmail.com</Link>
             </li>
           </ul>
