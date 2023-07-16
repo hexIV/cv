@@ -4,8 +4,8 @@ import { differenceInYears, format, parseISO } from 'date-fns';
 import Image from 'next/image'
 import Link from 'next/link';
 import Flag from 'react-world-flags'
-import { Carousel } from 'flowbite-react';
-import subYears from 'date-fns/subYears';
+import { Button, Carousel, Modal } from 'flowbite-react';
+import { useState } from 'react';
 
 export default function Home() {
   const name = 'Josef George Orland';
@@ -35,7 +35,7 @@ export default function Home() {
   const experiences = [
     {
       company: 'THESPIKE.GG',
-      role: 'Tech Lead & Founder',
+      role: 'Tech Lead',
       description: `
         <p>THESPIKE.GG is a website that provides coverage of professional esports for VALORANT, a game published by Riot Games (same publisher of League of Legends).<p>
         <p>I had founded this project back in 2019 and had built the whole system from scratch by myself using a custom CMS, frontend with CakePHP, SASS and jQuery and a MySQL database hosted on AWS infrastructure.</p>
@@ -106,16 +106,28 @@ export default function Home() {
     },
   ]
 
+  interface Experience {
+    role: string;
+    company: string;
+    description: string;
+    from: Date;
+    to: Date | null;
+  }
+  const [currentExperience, setCurrentExperience] = useState<Experience | null>(null)
+
   return (
     <main className="flex flex-col md:flex-row min-h-screen items-center bg-neutral-200">
-      <div className="flex h-screen w-full lg:w-2/4 lg:fixed items-center justify-center flex-col lg:top-0 lg:right-0 bg-green-300">
+      <div className="flex h-screen w-full relative lg:w-2/4 lg:fixed items-center justify-center flex-col lg:top-0 lg:right-0 bg-blue-400">
         <Image className="w-250 h-250 p-1 rounded-full ring-2 ring-black" src="/me.jpg" width="300" height="300" alt={name} />
         <h1 className="text-2xl mt-5">{name}</h1>
         <h2 className="mt-1">Lead Software Developer</h2>
         <div>{differenceInYears(new Date(), parseISO('1987-09-20'))} yrs old from <Flag width="22" code={'mt'} alt={`Malta`} style={{display: 'inline-block'}} /> Malta</div>
+        <div className="absolute bottom-5 lg:right-5 text-xs">
+          CV created using Next.js 13 + Tailwind CSS + Flowbite React
+        </div>
       </div>
       <div className="lg:w-2/4 min-h-screen flex flex-col p-3 lg:p-12">
-        <ul className="menu w-full lg:w-2/4 flex list-none justify-end fixed left-0 top-0 lg:top-12 lg:pr-12 lg:bg-transparent pb-3 pt-3 lg:pb-0 lg:pt-0">
+        <ul className="menu w-full flex list-none justify-end fixed left-0 top-0 pb-3 pt-3 bg-neutral-200 z-50 lg:top-12 lg:pr-12 lg:pb-0 lg:pt-0 lg:w-2/4">
           <li className="mr-4"><Link href={'#about'}>about</Link></li>
           <li className="mr-4"><Link href={'#skills'}>skills</Link></li>
           <li className="mr-4"><Link href={'#experience'}>experience</Link></li>
@@ -141,8 +153,8 @@ export default function Home() {
                       <span>{skill.title}</span>
                       <span>{skill.level}/10</span>
                     </div>
-                    <div className="w-full bg-gray-500 rounded-full h-5 dark:bg-gray-700">
-                      <div className="bg-green-600 h-5 rounded-full" style={{width: `${skill.level * 10}%`}}></div>
+                    <div className="w-full bg-gray-400 rounded-full h-2 lg:h-5">
+                      <div className="bg-blue-800 h-2 lg:h-5 rounded-full" style={{width: `${skill.level * 10}%`}}></div>
                     </div>
                   </li>
                 })}
@@ -156,8 +168,8 @@ export default function Home() {
                       <span>{skill.title}</span>
                       <span>{skill.level}/10</span>
                     </div>
-                    <div className="w-full bg-gray-500 rounded-full h-5 dark:bg-gray-700">
-                      <div className="bg-green-600 h-5 rounded-full" style={{width: `${skill.level * 10}%`}}></div>
+                    <div className="w-full bg-gray-400 rounded-full h-2 lg:h-5">
+                      <div className="bg-blue-800 h-2 lg:h-5 rounded-full" style={{width: `${skill.level * 10}%`}}></div>
                     </div>
                   </li>
                 })}
@@ -168,7 +180,7 @@ export default function Home() {
         <a id="experience"></a>
         <div className="flex flex-col min-h-screen justify-center">
           <h3 className="text-center text-2xl mb-16">Experience</h3>
-          <div style={{height: "600px"}}>
+          <div className="hidden lg:flex" style={{height: "600px"}}>
             <Carousel slide={false}>
               {experiences.map((experience, index) => {
                 return <div key={`experience-${index}`} className="flex h-full items-center bg-gray-300">
@@ -183,6 +195,23 @@ export default function Home() {
               })}
             </Carousel>
           </div>
+          <div className="lg:hidden">
+            {experiences.map((experience, index) => {
+              return <Button className="w-full mb-5 bg-blue-800" onClick={() => setCurrentExperience(experience)} key={`experience-button-${index}`}>
+                  {experience.role} at {experience.company}<br />
+                  {format(experience.from, "MMMM yyyy")} - {experience.to == null ? 'Present' : format(experience.to, 'MMMM yyyy')}
+                </Button>
+            })}
+          </div>
+          {currentExperience !== null && (
+            <Modal show={currentExperience !== null} onClose={() => setCurrentExperience(null)}>
+              <Modal.Header>{currentExperience.role} at {currentExperience.company}</Modal.Header>
+              <Modal.Body>
+                <div className="space-y-6 text-gray-500 experience-description" dangerouslySetInnerHTML={{__html: currentExperience.description}}>
+                </div>
+              </Modal.Body>
+            </Modal>
+          )}          
         </div>
         <a id="education"></a>
         <div className="flex flex-col min-h-screen justify-center">
