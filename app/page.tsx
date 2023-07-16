@@ -127,7 +127,7 @@ export default function Home() {
         </div>
       </div>
       <div className="lg:w-2/4 min-h-screen flex flex-col p-3 lg:p-12">
-        <ul className="menu w-full flex list-none justify-end fixed left-0 top-0 pb-3 pt-3 bg-neutral-200 z-50 lg:top-12 lg:pr-12 lg:pb-0 lg:pt-0 lg:w-2/4">
+        <ul className="menu w-full flex list-none justify-center lg:justify-end fixed left-0 top-0 pb-3 pt-3 bg-neutral-200 z-50 lg:top-12 lg:pr-12 lg:pb-0 lg:pt-0 lg:w-2/4">
           <li className="mr-4"><Link href={'#about'}>about</Link></li>
           <li className="mr-4"><Link href={'#skills'}>skills</Link></li>
           <li className="mr-4"><Link href={'#experience'}>experience</Link></li>
