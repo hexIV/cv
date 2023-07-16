@@ -236,7 +236,7 @@ export default function Home() {
                 <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
                 <rect x="2" y="9" width="4" height="12" />
                 <circle cx="4" cy="4" r="2" />
-              </svg> <Link target='_blank' href="https://linkedin.com/joorland">https://linkedin.com/joorland</Link>
+              </svg> <Link target='_blank' href="https://www.linkedin.com/in/joorland/">@joorland</Link>
             </li>
             <li className="flex items-center">
               <svg className="h-8 w-8 text-red-500 mr-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"/></svg>
