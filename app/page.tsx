@@ -34,6 +34,15 @@ export default function Home() {
 
   const experiences = [
     {
+      company: 'NGP EMS Ltd.',
+      role: 'Senior Software Developer',
+      description: `
+        <p>At NGP EMS, my role consists of maintaining the CRM and ERP platforms of the company. This includes connecting with various external APIs.</p>
+      `,
+      from: parseISO('2023-09-01'),
+      to: null
+    },
+    {
       company: 'THESPIKE.GG',
       role: 'Tech Lead',
       description: `
@@ -43,7 +52,7 @@ export default function Home() {
         <p>The project also boosts other AWS services such as AWS Lambda Node.js functions running as cron jobs, a Websocket.io Node.js AWS EC2 server for Live Scores, AWS S3 & Cloudfront for image hosting and CDN delivery and AWS Redis Elasticache for data caching.</p>
       `,
       from: parseISO('2020-11-01'),
-      to: null
+      to: parseISO('2023-08-20')
     },
     {
       company: 'PreeoStudios',
@@ -128,11 +137,11 @@ export default function Home() {
       </div>
       <div className="lg:w-2/4 min-h-screen flex flex-col p-3 lg:p-12">
         <ul className="menu w-full flex list-none justify-center fixed left-0 top-0 pb-3 pt-3 bg-neutral-200 z-50 lg:top-12 lg:pr-12 lg:pb-0 lg:pt-0 lg:w-2/4 lg:justify-end ">
-          <li className="mr-4"><Link href={'#about'}>about</Link></li>
-          <li className="mr-4"><Link href={'#skills'}>skills</Link></li>
-          <li className="mr-4"><Link href={'#experience'}>experience</Link></li>
-          <li className="mr-4"><Link href={'#education'}>education</Link></li>
-          <li><Link href={'#contact'}>contact</Link></li>
+          <li className="mr-4"><Link className="hover:font-bold hover:underline hover:underline-offset-4" href={'#about'}>About</Link></li>
+          <li className="mr-4"><Link className="hover:font-bold hover:underline hover:underline-offset-4" href={'#skills'}>Skills</Link></li>
+          <li className="mr-4"><Link className="hover:font-bold hover:underline hover:underline-offset-4" href={'#experience'}>Experience</Link></li>
+          <li className="mr-4"><Link className="hover:font-bold hover:underline hover:underline-offset-4" href={'#education'}>Education</Link></li>
+          <li><Link className="hover:font-bold hover:underline hover:underline-offset-4" href={'#contact'}>Contact</Link></li>
         </ul>
         <a id="about"></a>
         <div className="flex flex-col min-h-screen justify-center">
