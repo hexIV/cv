@@ -150,8 +150,8 @@ export default function Home() {
           <p className="text-right">Hosted on Vercel.com using Hobby plan</p>
         </div>
       </div>
-      <div className="lg:w-2/4 min-h-screen flex flex-col p-3 lg:p-0">
-        <ul className="menu sticky top-0 w-full flex list-none justify-center lg:p-6 lg:bg-blue-400">
+      <div className="lg:w-2/4 min-h-screen flex flex-col lg:p-0 border border-white lg:border-0">
+        <ul className="menu sticky z-10 top-0 w-full flex list-none justify-center p-6 bg-blue-400">
           <li className="mr-4"><Link onClick={() => setSelectedMenu('about')} className={"hover:font-bold hover:underline hover:underline-offset-4 " + (selectedMenu == 'about' ? 'selected' : '')} href={'#about'}>About</Link></li>
           <li className="mr-4"><Link onClick={() => setSelectedMenu('skills')} className={"hover:font-bold hover:underline hover:underline-offset-4 " + (selectedMenu == 'skills' ? 'selected' : '')} href={'#skills'}>Skills</Link></li>
           <li className="mr-4"><Link onClick={() => setSelectedMenu('experience')} className={"hover:font-bold hover:underline hover:underline-offset-4 " + (selectedMenu == 'experience' ? 'selected' : '')} href={'#experience'}>Experience</Link></li>
@@ -159,14 +159,14 @@ export default function Home() {
           <li><Link onClick={() => setSelectedMenu('contact')} className={"hover:font-bold hover:underline hover:underline-offset-4 " + (selectedMenu == 'contact' ? 'selected' : '')} href={'#contact'}>Contact</Link></li>
         </ul>
         <a id="about"></a>
-        <div className="flex flex-col min-h-screen justify-center lg:pl-12 lg:pr-12">
+        <div className="flex flex-col min-h-screen justify-center pl-6 pr-6 lg:pl-12 lg:pr-12">
           <h3 className="text-center text-2xl mb-16">About me</h3>
           <p className="mb-5">Born in 1987 from <Flag width="22" code={'mt'} alt={`Malta`} style={{display: 'inline-block'}} /> Malta, Software Development has been my passion since I was very young playing around with mIRC scripts and plugins.</p>
           <p className="mb-5">After I graduated from MCAST with a Bachelors in Computer Science while also learning PHP alone, I have started to build websites by myself as a hobby while also landing my first job with Crimsonwing as a PHP Developer.</p>
           <p>During my ~13 years career now, I&apos;ve been throughout all the Software Development stages from meeting clients and understanding requirements, coding, code reviews, and deploying production environments.</p>
         </div>
         <a id="skills"></a>
-        <div className="flex flex-col min-h-screen justify-center lg:pl-12 lg:pr-12">
+        <div className="flex flex-col min-h-screen justify-center pl-6 pr-6 lg:pl-12 lg:pr-12">
           <h3 className="text-center text-2xl mb-16">Skills</h3>
           <div className="flex">
             <div className="flex-1 mr-5">
@@ -178,7 +178,7 @@ export default function Home() {
                       <span>{skill.level}/10</span>
                     </div>
                     <div className="w-full bg-gray-400 rounded-full h-2 lg:h-5">
-                      <div className="bg-blue-800 h-2 lg:h-5 rounded-full" style={{width: `${skill.level * 10}%`}}></div>
+                      <div className="bg-gray-700 h-2 lg:h-5 rounded-full" style={{width: `${skill.level * 10}%`}}></div>
                     </div>
                   </li>
                 })}
@@ -193,7 +193,7 @@ export default function Home() {
                       <span>{skill.level}/10</span>
                     </div>
                     <div className="w-full bg-gray-400 rounded-full h-2 lg:h-5">
-                      <div className="bg-blue-800 h-2 lg:h-5 rounded-full" style={{width: `${skill.level * 10}%`}}></div>
+                      <div className="bg-gray-700 h-2 lg:h-5 rounded-full" style={{width: `${skill.level * 10}%`}}></div>
                     </div>
                   </li>
                 })}
@@ -202,7 +202,7 @@ export default function Home() {
           </div>
         </div>
         <a id="experience"></a>
-        <div className="flex flex-col min-h-screen justify-center lg:pl-12 lg:pr-12">
+        <div className="flex flex-col min-h-screen justify-center pl-12 pr-12">
           <h3 className="text-center text-2xl mb-16">Experience</h3>
           <div className="hidden lg:flex" style={{height: "600px"}}>
             <Carousel slide={false} indicators={false}>
@@ -221,14 +221,25 @@ export default function Home() {
           </div>
           <div className="lg:hidden">
             {experiences.map((experience, index) => {
-              return <Button className="w-full mb-5 bg-blue-800" onClick={() => setCurrentExperience(experience)} key={`experience-button-${index}`}>
+              return <Button className="w-full mb-5 bg-gray-700" onClick={() => setCurrentExperience(experience)} key={`experience-button-${index}`}>
                   {experience.role} at {experience.company}<br />
                   {format(experience.from, "MMMM yyyy")} - {experience.to == null ? 'Present' : format(experience.to, 'MMMM yyyy')}
                 </Button>
             })}
           </div>
           {currentExperience !== null && (
-            <Modal show={currentExperience !== null} onClose={() => setCurrentExperience(null)}>
+            <Modal theme={{
+              root: {
+                // Replace: h-modal h-screen with h-full
+                base: 'fixed top-0 right-0 left-0 z-50 h-full overflow-y-auto overflow-x-hidden md:inset-0 md:h-full',
+              },
+              content: {
+                // Added: flex flex-col justify-center
+                base: 'relative h-full w-full p-4 md:h-auto flex flex-col justify-center',
+                // Added: max-h-full max-w-full overflow-hidden
+                inner: 'relative rounded-lg bg-white shadow dark:bg-gray-700 flex flex-col',
+              },
+            }} show={currentExperience !== null} onClose={() => setCurrentExperience(null)}>
               <Modal.Header>{currentExperience.role} at {currentExperience.company}</Modal.Header>
               <Modal.Body>
                 <div className="space-y-6 text-gray-500 experience-description" dangerouslySetInnerHTML={{__html: currentExperience.description}}>
