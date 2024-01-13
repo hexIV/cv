@@ -30,4 +30,12 @@ main {
       @apply mb-5 text-justify;
     }
   }
+
+  .menu {
+    li {
+      a.selected {
+        @apply font-bold underline underline-offset-4;
+      }
+    }
+  }
 }

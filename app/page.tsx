@@ -8,8 +8,26 @@ import { Button, Carousel, Modal } from 'flowbite-react';
 import { useState } from 'react';
 
 export default function Home() {
-  const name = 'Josef George Orland';
-  const skills = [
+  interface Experience {
+    role: string;
+    company: string;
+    description: string;
+    from: Date;
+    to: Date | null;
+  }
+
+  interface Education {
+    school: string,
+    degree: string,
+    from: Date;
+    to: Date;
+  }
+
+  const name: string = 'Josef George Orland';
+  const skills: Array<{
+    title: string,
+    level: number
+  }> = [
     { title: 'PHP', level: 9 },
     { title: 'CakePHP', level: 9 },
     { title: 'Laravel', level: 6 },
@@ -32,12 +50,15 @@ export default function Home() {
     { title: 'Agile', level: 9 },
   ]
 
-  const experiences = [
+  const [selectedMenu, setSelectedMenu] = useState<string>('about');
+
+  const experiences: Array<Experience> = [
     {
-      company: 'NGP EMS Ltd.',
+      company: 'Northern Gas & Power',
       role: 'Senior Software Developer',
       description: `
-        <p>At NGP EMS, my role consists of maintaining the CRM and ERP platforms of the company. This includes connecting with various external APIs.</p>
+        <p>At NGP, my role consists of maintaining the CRM and ERP platforms of the company. The system is running on PHP5 and AngularJS including multiple services to connect with external APIs.</p>
+        <p>At the moment we are working on upgrading the system to PHP8 running on a Docker image which I prepared and also integrating real time notifications using Websockets. The Websocket server is something I'm building using AdonisJS 5 and the Redis Pub-Sub protocol</p>
       `,
       from: parseISO('2023-09-01'),
       to: null
@@ -94,7 +115,7 @@ export default function Home() {
     }
   ]
 
-  const education = [
+  const education: Array<Education> = [
     {
       school: 'MCAST',
       degree: 'B. Sc., Computer Science',
@@ -113,15 +134,8 @@ export default function Home() {
       from: parseISO('2006-01-01'),
       to: parseISO('2007-12-01')
     },
-  ]
-
-  interface Experience {
-    role: string;
-    company: string;
-    description: string;
-    from: Date;
-    to: Date | null;
-  }
+  ];
+  
   const [currentExperience, setCurrentExperience] = useState<Experience | null>(null)
 
   return (
@@ -132,26 +146,27 @@ export default function Home() {
         <h2 className="mt-1">Lead Software Developer</h2>
         <div>{differenceInYears(new Date(), parseISO('1987-09-20'))} yrs old from <Flag width="22" code={'mt'} alt={`Malta`} style={{display: 'inline-block'}} /> Malta</div>
         <div className="absolute bottom-5 lg:right-5 text-xs">
-          CV created using Next.js 13 + Tailwind CSS + Flowbite React
+          <p>CV created using Next.js 13 + Tailwind CSS + Flowbite React</p>
+          <p className="text-right">Hosted on Vercel.com using Hobby plan</p>
         </div>
       </div>
-      <div className="lg:w-2/4 min-h-screen flex flex-col p-3 lg:p-12">
-        <ul className="menu w-full flex list-none justify-center fixed left-0 top-0 pb-3 pt-3 bg-neutral-200 z-50 lg:top-12 lg:pr-12 lg:pb-0 lg:pt-0 lg:w-2/4 lg:justify-end ">
-          <li className="mr-4"><Link className="hover:font-bold hover:underline hover:underline-offset-4" href={'#about'}>About</Link></li>
-          <li className="mr-4"><Link className="hover:font-bold hover:underline hover:underline-offset-4" href={'#skills'}>Skills</Link></li>
-          <li className="mr-4"><Link className="hover:font-bold hover:underline hover:underline-offset-4" href={'#experience'}>Experience</Link></li>
-          <li className="mr-4"><Link className="hover:font-bold hover:underline hover:underline-offset-4" href={'#education'}>Education</Link></li>
-          <li><Link className="hover:font-bold hover:underline hover:underline-offset-4" href={'#contact'}>Contact</Link></li>
+      <div className="lg:w-2/4 min-h-screen flex flex-col p-3 lg:p-0">
+        <ul className="menu sticky top-0 w-full flex list-none justify-center lg:p-6 lg:bg-blue-400">
+          <li className="mr-4"><Link onClick={() => setSelectedMenu('about')} className={"hover:font-bold hover:underline hover:underline-offset-4 " + (selectedMenu == 'about' ? 'selected' : '')} href={'#about'}>About</Link></li>
+          <li className="mr-4"><Link onClick={() => setSelectedMenu('skills')} className={"hover:font-bold hover:underline hover:underline-offset-4 " + (selectedMenu == 'skills' ? 'selected' : '')} href={'#skills'}>Skills</Link></li>
+          <li className="mr-4"><Link onClick={() => setSelectedMenu('experience')} className={"hover:font-bold hover:underline hover:underline-offset-4 " + (selectedMenu == 'experience' ? 'selected' : '')} href={'#experience'}>Experience</Link></li>
+          <li className="mr-4"><Link onClick={() => setSelectedMenu('education')} className={"hover:font-bold hover:underline hover:underline-offset-4 " + (selectedMenu == 'education' ? 'selected' : '')} href={'#education'}>Education</Link></li>
+          <li><Link onClick={() => setSelectedMenu('contact')} className={"hover:font-bold hover:underline hover:underline-offset-4 " + (selectedMenu == 'contact' ? 'selected' : '')} href={'#contact'}>Contact</Link></li>
         </ul>
         <a id="about"></a>
-        <div className="flex flex-col min-h-screen justify-center">
+        <div className="flex flex-col min-h-screen justify-center lg:pl-12 lg:pr-12">
           <h3 className="text-center text-2xl mb-16">About me</h3>
           <p className="mb-5">Born in 1987 from <Flag width="22" code={'mt'} alt={`Malta`} style={{display: 'inline-block'}} /> Malta, Software Development has been my passion since I was very young playing around with mIRC scripts and plugins.</p>
           <p className="mb-5">After I graduated from MCAST with a Bachelors in Computer Science while also learning PHP alone, I have started to build websites by myself as a hobby while also landing my first job with Crimsonwing as a PHP Developer.</p>
           <p>During my ~13 years career now, I&apos;ve been throughout all the Software Development stages from meeting clients and understanding requirements, coding, code reviews, and deploying production environments.</p>
         </div>
         <a id="skills"></a>
-        <div className="flex flex-col min-h-screen justify-center">
+        <div className="flex flex-col min-h-screen justify-center lg:pl-12 lg:pr-12">
           <h3 className="text-center text-2xl mb-16">Skills</h3>
           <div className="flex">
             <div className="flex-1 mr-5">
@@ -187,12 +202,12 @@ export default function Home() {
           </div>
         </div>
         <a id="experience"></a>
-        <div className="flex flex-col min-h-screen justify-center">
+        <div className="flex flex-col min-h-screen justify-center lg:pl-12 lg:pr-12">
           <h3 className="text-center text-2xl mb-16">Experience</h3>
           <div className="hidden lg:flex" style={{height: "600px"}}>
-            <Carousel slide={false}>
+            <Carousel slide={false} indicators={false}>
               {experiences.map((experience, index) => {
-                return <div key={`experience-${index}`} className="flex h-full items-center bg-gray-300">
+                return <div key={`experience-${index}`} className="flex h-full items-center bg-gray-700 text-white">
                   <div className="flex flex-col flex-1 pl-20 pr-20">
                     <div className="flex flex-1 flex-col mb-5">
                       <span><b>{experience.role}</b> at <b>{experience.company}</b></span>
@@ -223,7 +238,7 @@ export default function Home() {
           )}          
         </div>
         <a id="education"></a>
-        <div className="flex flex-col min-h-screen justify-center">
+        <div className="flex flex-col min-h-screen justify-center lg:pl-12 lg:pr-12">
           <h3 className="text-center text-2xl mb-16">Education</h3>
           <ul>
             {education.map((educationItem, index) => {
@@ -237,7 +252,7 @@ export default function Home() {
           </ul>
         </div>
         <a id="contact"></a>
-        <div className="flex flex-col min-h-screen justify-center items-center">
+        <div className="flex flex-col min-h-screen justify-center items-center lg:pl-12 lg:pr-12">
           <h3 className="text-center text-2xl mb-16">Contact</h3>
           <ul className="flex flex-col">
             <li className="flex items-center">
